@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_item_map"
+            android:icon="@drawable/ic_map"
+            android:title="@string/map" />
+
+        <item
+            android:id="@+id/menu_item_transfer"
+            android:icon="@drawable/ic_wallet"
+            android:title="@string/money_transfer" />
+
+        <item
+            android:id="@+id/menu_item_bonuses"
+            android:icon="@drawable/ic_crown"
+            android:title="@string/bonuses_item" />
+
+        <item
+            android:icon="@drawable/ic_cellphone"
+            android:title="@string/mobile_pay" />
+
+        <item
+            android:icon="@drawable/ic_currency_usd"
+            android:title="@string/crediting" />
+
+        <item
+            android:icon="@drawable/ic_minus_in_circle"
+            android:title="@string/checking_the_ban_departure" />
+
+        <item
+            android:icon="@drawable/ic_file_document"
+            android:title="@string/checking_the_work_permit" />
+
+        <item
+            android:id="@+id/menu_item_other_services"
+            android:title="@string/reference_information">
+            <menu>
+                <group android:checkableBehavior="single">
+
+                    <item
+                        android:icon="@drawable/ic_info"
+                        android:title="@string/about_the_application" />
+
+                    <item
+                        android:icon="@drawable/ic_domain"
+                        android:title="@string/about_the_company" />
+
+                    <item
+                        android:icon="@drawable/ic_help"
+                        android:title="@string/faq" />
+
+                    <item
+                        android:icon="@drawable/ic_plus_box"
+                        android:title="@string/medical_policy" />
+
+                    <item
+                        android:icon="@drawable/ic_file_account"
+                        android:title="@string/obtaining_a_patent" />
+
+                    <item
+                        android:icon="@drawable/ic_headphones"
+                        android:title="@string/support_service" />
+                </group>
+            </menu>
+        </item>
+    </group>
+</menu>

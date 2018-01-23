@@ -1,0 +1,3 @@
+package ru.kabylin.androidarchexample.systems.authorization.models.responses
+
+typealias UpdateTokenResponse = RegistrationResponse

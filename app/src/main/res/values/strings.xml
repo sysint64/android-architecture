@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Hello world</string>
+    <string name="phone">Телефон</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="already_registered">Уже зарегистрированы?</string>
+    <string name="login">Войти</string>
+    <string name="logo_description">- поможет экономить\n- поможет заработать\n- поможет найти работу\n- сделает Вашу жизнь удобнее!</string>
+    <string name="resend_sms_timer">Отправить еще раз через <b>%d секунд</b></string>
+    <string name="enter_code_from_sms">Введите код из СМС</string>
+    <string name="retry_sms">Повторить SMS</string>
+    <string name="skip">Пропустить</string>
+    <string name="restore_password">Восстановить пароль</string>
+    <string name="pass_code_enter_key">Для входа в приложение введите <b>ключ</b></string>
+    <string name="pass_code_set_key" tools:ignore="TypographyFractions">(1/2) Для входа в приложение установите <b>ключ</b></string>
+    <string name="pass_code_repeat_key">(2/2) Повторите введенный <b>ключ</b></string>
+    <string name="something_went_wrong">Что-то пошло не так, попробуйте повторить позже</string>
+
+    <!-- Profile -->
+    <string name="user_id">ID: %s</string>
+    <string name="bonuses_count">Бонусы: %d бал.</string>
+    <string name="concise_male">Муж</string>
+    <string name="concise_female">Жен</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="change_password">Сменить пароль</string>
+    <string name="personal_document">Удостоверяющие документы</string>
+    <string name="logout">Выйти из аккаунта</string>
+    <string name="arrow_img_description">Сменить пароль</string>
+
+    <!-- Edit profile -->
+    <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="patronymic">Отчество (при наличии)</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="gender">Пол</string>
+    <string name="nationality">Гражданство</string>
+    <string name="city_rf">Город в РФ</string>
+    <string name="icon_help_description">Город в РФ</string>
+    <string name="save_profile">Сохранить</string>
+    <string name="main_screen">Главный экран</string>
+    <string name="map">Информационная карта</string>
+    <string name="bonuses_item">Бонусы</string>
+    <string name="money_transfer">Денежные переводы</string>
+    <string name="patent_registration">Оформление патента</string>
+    <string name="other_services">Прочие услуги</string>
+    <string name="crediting">Кредитное предложение</string>
+    <string name="about_the_company">О компании</string>
+    <string name="about_the_application">О приложении</string>
+    <string name="faq">FAQ</string>
+    <string name="medical_policy">где получить поли ДМС</string>
+    <string name="obtaining_a_patent">Процедура получения патента</string>
+    <string name="mobile_pay">Оплата мобильного телефона</string>
+    <string name="checking_the_ban_departure">Проверка запрета на выезд</string>
+    <string name="checking_the_work_permit">Проверка разрешения на работу</string>
+    <string name="reference_information">Справочная информация</string>
+    <string name="support_service">Служба поддержки</string>
+
+    <!-- Forms errors -->
+    <string name="required_error">Поле обязательно к заполнению</string>
+    <string name="email_validation_error">Email не валидный</string>
+    <string name="phone_validation_error">Номер телефона не валидный</string>
+    <string name="min_error">Строка слишком маленькая (минимум %d символов)</string>
+    <string name="max_error">Строка слишком длинная (максимум %d символов)</string>
+
+    <!-- NavigationHeader -->
+    <string name="id">ID: %s</string>
+    <string name="bonuses">Бонусы: %s</string>
+
+    <!-- Personal Document -->
+    <string name="document">Документ</string>
+    <string name="document_series">Серия</string>
+    <string name="document_number">Номер</string>
+    <string name="country_of_issue">Страна выдачи документа</string>
+
+
+</resources>

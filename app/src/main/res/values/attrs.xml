@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DialogSpinnerInput">
+        <attr name="title" format="string"/>
+        <attr name="with_search" format="boolean"/>
+    </declare-styleable>
+</resources>
