@@ -1,7 +1,7 @@
 package ru.kabylin.androidarchexample.systems.authorization.models
 
-import ru.kabylin.androidarchexample.credentials.AuthToken
-import ru.kabylin.androidarchexample.credentials.Credentials
+import ru.kabylin.androidarchexample.client.credentials.AuthToken
+import ru.kabylin.androidarchexample.client.credentials.Credentials
 import ru.kabylin.androidarchexample.systems.authorization.models.responses.LoginResponse
 
 val MALE = "M"

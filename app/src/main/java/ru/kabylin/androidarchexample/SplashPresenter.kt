@@ -3,8 +3,8 @@ package ru.kabylin.androidarchexample
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.kabylin.androidarchexample.ext.subscribeOnSuccess
-import ru.kabylin.androidarchexample.presenters.Presenter
+import ru.kabylin.androidarchexample.common.ext.subscribeOnSuccess
+import ru.kabylin.androidarchexample.common.Presenter
 import java.util.concurrent.TimeUnit
 
 class SplashPresenter : Presenter<SplashActivity>() {

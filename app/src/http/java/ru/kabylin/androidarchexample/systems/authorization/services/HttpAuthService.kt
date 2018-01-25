@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import ru.kabylin.androidarchexample.client.Client
 import ru.kabylin.androidarchexample.client.createRetrofitService
-import ru.kabylin.androidarchexample.credentials.Credentials
+import ru.kabylin.androidarchexample.client.credentials.Credentials
 import ru.kabylin.androidarchexample.services.Service
 import ru.kabylin.androidarchexample.systems.authorization.models.requests.LoginRequest
 import ru.kabylin.androidarchexample.systems.authorization.models.requests.UpdateTokenRequest

@@ -8,10 +8,10 @@ import org.jetbrains.anko.db.select
 import org.jetbrains.anko.db.update
 import ru.kabylin.androidarchexample.client.Client
 import ru.kabylin.androidarchexample.client.api.apiValidationException
-import ru.kabylin.androidarchexample.credentials.Credentials
-import ru.kabylin.androidarchexample.credentials.DebugTokenCredentials
-import ru.kabylin.androidarchexample.ext.mapRowParser
-import ru.kabylin.androidarchexample.services.Service
+import ru.kabylin.androidarchexample.client.credentials.Credentials
+import ru.kabylin.androidarchexample.client.credentials.DebugTokenCredentials
+import ru.kabylin.androidarchexample.common.ext.mapRowParser
+import ru.kabylin.androidarchexample.common.Service
 import java.util.*
 
 class DebugAuthService(

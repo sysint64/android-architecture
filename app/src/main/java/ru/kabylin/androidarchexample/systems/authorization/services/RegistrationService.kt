@@ -1,8 +1,8 @@
 package ru.kabylin.androidarchexample.systems.authorization.services
 
 import io.reactivex.Single
-import ru.kabylin.androidarchexample.services.Service
-import ru.kabylin.androidarchexample.credentials.Credentials
+import ru.kabylin.androidarchexample.common.Service
+import ru.kabylin.androidarchexample.client.credentials.Credentials
 
 /**
  * Сервис регистрации пользователя.

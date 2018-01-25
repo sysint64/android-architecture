@@ -40,6 +40,11 @@ open class Form(val context: Context, val container: ViewGroup? = null) {
             .forEach { it.setError(error) }
     }
 
+    fun setEnabled(enabled: Boolean) {
+        if (enabled) enable()
+        else disable()
+    }
+
     fun disable() {
         fields.forEach { it.isEnabled = false }
         submitButton?.isEnabled = false

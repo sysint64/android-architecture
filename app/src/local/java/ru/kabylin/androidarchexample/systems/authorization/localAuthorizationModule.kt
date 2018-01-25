@@ -2,14 +2,14 @@ package ru.kabylin.androidarchexample.systems.authorization
 
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.android.androidActivityScope
-import ru.kabylin.androidarchexample.credentials.CredentialsProvider
-import ru.kabylin.androidarchexample.credentials.DebugTokenCredentialsProvider
-import ru.kabylin.androidarchexample.systems.authorization.screens.activities.DebugRegistrationActivityDelegate
-import ru.kabylin.androidarchexample.systems.authorization.screens.activities.RegistrationActivity
-import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.FinishRegistrationPresenter
-import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.LoginPresenter
-import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.RegistrationPresenter
-import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.VerifySmsPresenter
+import ru.kabylin.androidarchexample.client.credentials.CredentialsProvider
+import ru.kabylin.androidarchexample.client.credentials.DebugTokenCredentialsProvider
+import ru.kabylin.androidarchexample.systems.authorization.activities.DebugRegistrationActivityDelegate
+import ru.kabylin.androidarchexample.systems.authorization.activities.RegistrationActivity
+import ru.kabylin.androidarchexample.systems.authorization.presenters.FinishRegistrationPresenter
+import ru.kabylin.androidarchexample.systems.authorization.presenters.LoginPresenter
+import ru.kabylin.androidarchexample.systems.authorization.presenters.RegistrationPresenter
+import ru.kabylin.androidarchexample.systems.authorization.presenters.VerifySmsPresenter
 import ru.kabylin.androidarchexample.systems.authorization.services.DebugAuthService
 import ru.kabylin.androidarchexample.systems.authorization.services.DebugRegistrationService
 import ru.kabylin.androidarchexample.systems.authorization.services.AuthService

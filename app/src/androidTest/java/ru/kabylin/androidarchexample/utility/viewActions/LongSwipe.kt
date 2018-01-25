@@ -5,7 +5,7 @@ import android.support.test.espresso.UiController
 import android.support.test.espresso.action.MotionEvents
 import android.support.test.espresso.core.internal.deps.guava.base.Preconditions.checkElementIndex
 import android.util.Log
-import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.LoginPresenter.Companion.TAG
+import ru.kabylin.androidarchexample.systems.authorization.presenters.LoginPresenter.Companion.TAG
 import ru.kabylin.androidarchexample.utility.interfaces.LongSwiper
 
 enum class LongSwipe : LongSwiper {

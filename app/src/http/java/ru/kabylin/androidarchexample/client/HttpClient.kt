@@ -16,8 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.kabylin.androidarchexample.BuildConfig
 import ru.kabylin.androidarchexample.client.api.ApiErrorException
 import ru.kabylin.androidarchexample.client.api.handleApiError
+import ru.kabylin.androidarchexample.common.Service
 import ru.kabylin.androidarchexample.prefs.StoredAccessTokenCredentials
-import ru.kabylin.androidarchexample.services.Service
 import java.util.concurrent.TimeUnit
 
 class HttpClient(

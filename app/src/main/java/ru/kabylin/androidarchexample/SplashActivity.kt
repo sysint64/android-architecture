@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import com.github.salomonbrys.kodein.instance
-import ru.kabylin.androidarchexample.credentials.CredentialsProvider
+import ru.kabylin.androidarchexample.client.credentials.CredentialsProvider
 import ru.kabylin.androidarchexample.prefs.StoredUserInfo
-import ru.kabylin.androidarchexample.systems.authorization.screens.activities.LoginActivity
-import ru.kabylin.androidarchexample.systems.authorization.screens.activities.RegistrationActivity
+import ru.kabylin.androidarchexample.systems.authorization.activities.LoginActivity
+import ru.kabylin.androidarchexample.systems.authorization.activities.RegistrationActivity
 
 class SplashActivity : KodeinAppCompatActivity() {
     private val credentialsProvider: CredentialsProvider by instance("api")

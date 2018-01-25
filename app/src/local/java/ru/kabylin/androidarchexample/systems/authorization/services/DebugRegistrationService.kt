@@ -5,9 +5,9 @@ import io.reactivex.Single
 import org.jetbrains.anko.db.*
 import ru.kabylin.androidarchexample.client.Client
 import ru.kabylin.androidarchexample.client.api.apiValidationException
-import ru.kabylin.androidarchexample.credentials.DebugTokenCredentials
-import ru.kabylin.androidarchexample.services.Service
-import ru.kabylin.androidarchexample.credentials.Credentials
+import ru.kabylin.androidarchexample.client.credentials.DebugTokenCredentials
+import ru.kabylin.androidarchexample.common.Service
+import ru.kabylin.androidarchexample.client.credentials.Credentials
 import java.util.*
 
 class DebugRegistrationService(
@@ -15,9 +15,8 @@ class DebugRegistrationService(
     val database: ManagedSQLiteOpenHelper,
     val injector: KodeinInjector
 ) : RegistrationService {
-    override var requestCode: Int = Service.REQUEST_DEFAULT
+    override var requestCode = Service.REQUEST_DEFAULT
 
-    // Ключ - номер телефона, значение - секретный код
     companion object {
         //Ключ - номер телефона, значение - код активации
         private val activationCodes: MutableMap<String, String> = HashMap()

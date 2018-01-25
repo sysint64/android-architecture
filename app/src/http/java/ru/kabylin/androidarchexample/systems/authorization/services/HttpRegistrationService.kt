@@ -5,12 +5,12 @@ import io.reactivex.Single
 import retrofit2.http.*
 import ru.kabylin.androidarchexample.client.Client
 import ru.kabylin.androidarchexample.client.createRetrofitService
-import ru.kabylin.androidarchexample.credentials.Credentials
+import ru.kabylin.androidarchexample.client.credentials.Credentials
 import ru.kabylin.androidarchexample.services.Service
 import ru.kabylin.androidarchexample.systems.authorization.models.requests.ActivationCodeRequest
 import ru.kabylin.androidarchexample.systems.authorization.models.requests.RegistrationRequest
 import ru.kabylin.androidarchexample.systems.authorization.models.responses.RegistrationResponse
-import ru.kabylin.androidarchexample.credentials.AuthToken
+import ru.kabylin.androidarchexample.client.credentials.AuthToken
 import ru.kabylin.androidarchexample.systems.authorization.models.CodeRequest
 
 class HttpRegistrationService(

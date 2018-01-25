@@ -2,8 +2,8 @@ package ru.kabylin.androidarchexample.systems.authorization
 
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.android.androidActivityScope
-import ru.kabylin.androidarchexample.credentials.CredentialsProvider
-import ru.kabylin.androidarchexample.credentials.AuthTokentCredentialsProvider
+import ru.kabylin.androidarchexample.client.credentials.CredentialsProvider
+import ru.kabylin.androidarchexample.client.credentials.AuthTokentCredentialsProvider
 import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.FinishRegistrationPresenter
 import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.LoginPresenter
 import ru.kabylin.androidarchexample.systems.authorization.screens.presenters.RegistrationPresenter

@@ -1,7 +1,7 @@
 package ru.kabylin.androidarchexample.client
 
 import android.util.SparseArray
-import ru.kabylin.androidarchexample.services.Service
+import ru.kabylin.androidarchexample.common.Service
 import java.util.concurrent.CountDownLatch
 
 class CountDownLatchAwaitableRequestStateListener : AwaitableRequestStateListener {
