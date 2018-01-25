@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import ru.kabylin.androidarchexample.client.api.ApiErrorException
 import ru.kabylin.androidarchexample.client.api.handleApiError
 import ru.kabylin.androidarchexample.common.Service
+import ru.kabylin.androidarchexample.systems.authorization.dispatch
 import java.util.concurrent.TimeUnit
 
 class DebugClient(

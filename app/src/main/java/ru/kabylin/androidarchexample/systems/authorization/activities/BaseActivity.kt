@@ -45,6 +45,7 @@ open class BaseActivity : KodeinAppCompatActivity(), DataStoreAware, ViewStateHo
             return
 
         Router.viewStateTransitionUpdate(this, dataStore.registrationViewStateData.screenTransition)
+//        dataStore.registrationViewStateData.screenTransition =
     }
 
     @CallSuper

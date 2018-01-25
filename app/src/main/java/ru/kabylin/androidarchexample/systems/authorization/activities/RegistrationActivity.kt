@@ -16,9 +16,10 @@ import ru.kabylin.androidarchexample.forms.fields.editText
 import ru.kabylin.androidarchexample.forms.form
 import ru.kabylin.androidarchexample.forms.validators.PhoneValidator
 import ru.kabylin.androidarchexample.forms.validators.RequiredValidator
-import ru.kabylin.androidarchexample.systems.authorization.DispatchAction
+import ru.kabylin.androidarchexample.systems.authorization.RegistrationAction
 import ru.kabylin.androidarchexample.systems.authorization.dispatch
 import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
+import ru.kabylin.androidarchexample.views.ViewStateHolder
 
 class RegistrationActivity : BaseActivity() {
     interface Delegate {
@@ -41,6 +42,7 @@ class RegistrationActivity : BaseActivity() {
     override fun provideOverridingModule() = Kodein.Module {
         bind<RequestStateListener>() with instance(viewState)
         bind<ApiValidationErrorListener>() with instance(viewState)
+        bind<ViewStateHolder>() with instance(this@RegistrationActivity)
         bind<KodeinInjector>() with instance(this@RegistrationActivity.injector)
     }
 
@@ -58,7 +60,8 @@ class RegistrationActivity : BaseActivity() {
 
             attachSubmitButton(registerButton)
             onSubmit {
-                dispatch(this@RegistrationActivity, dataStore, DispatchAction.REQUEST_REGISTRATION, service)
+                dataStore.registrationViewStateData.registrationAction = RegistrationAction.REQUEST_REGISTRATION
+                dispatch(injector, dataStore)
             }
         }
 
@@ -113,6 +116,7 @@ class RegistrationActivity : BaseActivity() {
             REQUEST_FOR_RESULT_VERIFY_SMS -> {
                 dataStore.registrationViewStateData.screenTransition = ScreenTransition.ACTIVITY_FINISH_REGISTRATION
                 viewStateTransitionUpdate()
+//                dispatch(injector, dataStore)
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

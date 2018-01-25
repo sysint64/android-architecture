@@ -1,6 +1,7 @@
 package ru.kabylin.androidarchexample
 
 import android.support.annotation.StringRes
+import ru.kabylin.androidarchexample.systems.authorization.RegistrationAction
 import ru.kabylin.androidarchexample.systems.authorization.activities.FinishRegistrationActivity
 import ru.kabylin.androidarchexample.systems.authorization.activities.VerifyBySmsActivity
 import kotlin.reflect.KClass
@@ -37,7 +38,8 @@ data class RegistrationViewStateData(
     @StringRes var authErrorMessage: Int = 0,
     var loadingState: LoadingState = LoadingState.FINISHED,
     var screenTransition: ScreenTransition = ScreenTransition.NONE,
-    var requestRegistrationState: RequestState = RequestState.IDLE
+    var requestRegistrationState: RequestState = RequestState.IDLE,
+    var registrationAction: RegistrationAction = RegistrationAction.IDLE
 )
 
 const val DATA_STORE_BROADCAST_ACTION = "ru.kabylin.androidarchexample.DataStore.BroadcastAction"
