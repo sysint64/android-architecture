@@ -15,12 +15,6 @@ enum class LoadingState {
     FINISHED
 }
 
-enum class ScreenTransition(val cls: KClass<*>? = null) {
-    NONE,
-    ACTIVITY_VERIFY_BY_SMS(VerifyBySmsActivity::class),
-    ACTIVITY_FINISH_REGISTRATION(FinishRegistrationActivity::class)
-}
-
 enum class Event {
     DATA_STORE_UPDATED
 }
@@ -37,7 +31,6 @@ data class RegistrationViewStateData(
     var fromErrors: Map<String, String> = HashMap(),
     @StringRes var authErrorMessage: Int = 0,
     var loadingState: LoadingState = LoadingState.FINISHED,
-    var screenTransition: ScreenTransition = ScreenTransition.NONE,
     var requestRegistrationState: RequestState = RequestState.IDLE,
     var registrationAction: RegistrationAction = RegistrationAction.IDLE
 )

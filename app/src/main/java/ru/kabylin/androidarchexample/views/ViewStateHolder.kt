@@ -5,5 +5,5 @@ interface ViewStateHolder {
 
     fun viewStateFullUpdate() {}
 
-    fun viewStateTransitionUpdate() {}
+    fun viewStateInBackground(): Boolean
 }

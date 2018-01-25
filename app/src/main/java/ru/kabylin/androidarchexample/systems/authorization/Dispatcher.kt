@@ -7,6 +7,8 @@ import com.github.salomonbrys.kodein.KodeinInjector
 import com.github.salomonbrys.kodein.instance
 import io.reactivex.rxkotlin.subscribeBy
 import ru.kabylin.androidarchexample.*
+import ru.kabylin.androidarchexample.systems.authorization.activities.FinishRegistrationActivity
+import ru.kabylin.androidarchexample.systems.authorization.activities.VerifyBySmsActivity
 import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
 import ru.kabylin.androidarchexample.views.ViewStateHolder
 
@@ -16,29 +18,47 @@ enum class RegistrationAction {
     FINISH_REGISTRATION
 }
 
-fun dispatch(injector: KodeinInjector, dataStore: DataStore) {
+fun dispatch(context: Context, injector: KodeinInjector, dataStore: DataStore) {
     val viewHolder: ViewStateHolder by injector.instance()
 
-    when (dataStore.registrationViewStateData.registrationAction) {
-        RegistrationAction.IDLE -> {}
-        RegistrationAction.REQUEST_REGISTRATION -> {
-            val service : RegistrationService by injector.instance()
-            dataStore.registrationViewStateData.requestRegistrationState = RequestState.PROCESS
+    with(dataStore.registrationViewStateData) {
+        when {
+            registrationAction == RegistrationAction.REQUEST_REGISTRATION -> {
+                val service: RegistrationService by injector.instance()
+                requestRegistrationState = RequestState.PROCESS
 
-            service.requestRegistration(dataStore.registrationViewStateData.phone)
-                .subscribeBy(
-                    onSuccess = {
-                        dataStore.registrationViewStateData.requestRegistrationState = RequestState.SUCCESS
-                        dispatch(injector, dataStore)
-                    },
-                    onError = {
-                        dataStore.registrationViewStateData.requestRegistrationState = RequestState.ERROR
-                        dispatch(injector, dataStore)
-                    }
-                )
-        }
-        RegistrationAction.FINISH_REGISTRATION -> {
-            TODO("Not implemented")
+                service.requestRegistration(phone)
+                    .subscribeBy(
+                        onSuccess = {
+                            requestRegistrationState = RequestState.SUCCESS
+                            registrationAction = RegistrationAction.IDLE
+                            dispatch(context, injector, dataStore)
+                        },
+                        onError = {
+                            requestRegistrationState = RequestState.ERROR
+                            registrationAction = RegistrationAction.IDLE
+                            dispatch(context, injector, dataStore)
+                        }
+                    )
+            }
+            requestRegistrationState == RequestState.SUCCESS -> {
+                if (viewHolder.viewStateInBackground()) {
+                    return@with
+                }
+
+                requestRegistrationState = RequestState.IDLE
+                val intent = Intent(context, VerifyBySmsActivity::class.java)
+                context.startActivity(intent)
+            }
+            registrationAction == RegistrationAction.REQUEST_REGISTRATION -> {
+                val intent = Intent(context, FinishRegistrationActivity::class.java)
+                context.startActivity(intent)
+
+                if (viewHolder.viewStateInBackground()) {
+                    return@with
+                }
+            }
+            else -> {}
         }
     }
 

@@ -7,7 +7,6 @@ import com.github.salomonbrys.kodein.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import ru.kabylin.androidarchexample.LoadingState
 import ru.kabylin.androidarchexample.R
-import ru.kabylin.androidarchexample.ScreenTransition
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.common.ext.setErrors
@@ -61,7 +60,7 @@ class RegistrationActivity : BaseActivity() {
             attachSubmitButton(registerButton)
             onSubmit {
                 dataStore.registrationViewStateData.registrationAction = RegistrationAction.REQUEST_REGISTRATION
-                dispatch(injector, dataStore)
+                dispatch(this@RegistrationActivity, injector, dataStore)
             }
         }
 
@@ -114,9 +113,8 @@ class RegistrationActivity : BaseActivity() {
 
         when (requestCode) {
             REQUEST_FOR_RESULT_VERIFY_SMS -> {
-                dataStore.registrationViewStateData.screenTransition = ScreenTransition.ACTIVITY_FINISH_REGISTRATION
-                viewStateTransitionUpdate()
-//                dispatch(injector, dataStore)
+                dataStore.registrationViewStateData.registrationAction = RegistrationAction.FINISH_REGISTRATION
+                dispatch(this, injector, dataStore)
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
