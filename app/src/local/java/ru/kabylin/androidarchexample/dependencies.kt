@@ -9,7 +9,7 @@ import ru.kabylin.androidarchexample.systems.authorization.debugAuthorizationMod
 
 fun dependencies(context: Context): Kodein {
     val kodein by Kodein.lazy {
-        bind<Client>() with singleton { DebugClient() }
+        bind<Client>() with singleton { DebugClient(delay = 5) }
         bind<ManagedSQLiteOpenHelper>() with provider {
             DebugSqlHelper(context)
         }

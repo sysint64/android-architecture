@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import kotlinx.android.synthetic.local.activity_registration_debug.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import ru.kabylin.androidarchexample.R
-import ru.kabylin.androidarchexample.systems.authorization.presenters.RegistrationPresenter
 import ru.kabylin.androidarchexample.forms.Form
 
 @SuppressLint("SetTextI18n")
@@ -14,8 +13,8 @@ class DebugRegistrationActivityDelegate : RegistrationActivity.Delegate {
 
     private lateinit var activity: RegistrationActivity
 
-    override fun onCreate(activity: RegistrationActivity, presenter: RegistrationPresenter) {
-        this.activity =  activity
+    override fun setContentView(activity: RegistrationActivity) {
+        this.activity = activity
         this.activity.setContentView(R.layout.activity_registration_debug)
         init()
     }

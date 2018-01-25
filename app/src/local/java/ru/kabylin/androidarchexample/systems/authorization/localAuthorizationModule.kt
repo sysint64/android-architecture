@@ -8,7 +8,6 @@ import ru.kabylin.androidarchexample.systems.authorization.activities.DebugRegis
 import ru.kabylin.androidarchexample.systems.authorization.activities.RegistrationActivity
 import ru.kabylin.androidarchexample.systems.authorization.presenters.FinishRegistrationPresenter
 import ru.kabylin.androidarchexample.systems.authorization.presenters.LoginPresenter
-import ru.kabylin.androidarchexample.systems.authorization.presenters.RegistrationPresenter
 import ru.kabylin.androidarchexample.systems.authorization.presenters.VerifySmsPresenter
 import ru.kabylin.androidarchexample.systems.authorization.services.DebugAuthService
 import ru.kabylin.androidarchexample.systems.authorization.services.DebugRegistrationService
@@ -36,10 +35,6 @@ val debugAuthorizationModule = Kodein.Module {
     }
 
     // Registration
-    bind<RegistrationPresenter>() with scopedSingleton(androidActivityScope) {
-        RegistrationPresenter(kodein.instance())
-    }
-
     bind<RegistrationActivity.Delegate>() with scopedSingleton(androidActivityScope) {
         DebugRegistrationActivityDelegate()
     }
