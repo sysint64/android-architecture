@@ -2,13 +2,10 @@ package ru.kabylin.androidarchexample.systems.authorization
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.LocalBroadcastManager
 import com.github.salomonbrys.kodein.KodeinInjector
 import com.github.salomonbrys.kodein.instance
 import io.reactivex.rxkotlin.subscribeBy
 import ru.kabylin.androidarchexample.*
-import ru.kabylin.androidarchexample.systems.authorization.activities.FinishRegistrationActivity
-import ru.kabylin.androidarchexample.systems.authorization.activities.VerifyBySmsActivity
 import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
 import ru.kabylin.androidarchexample.views.ViewStateHolder
 
@@ -41,32 +38,47 @@ fun dispatch(context: Context, injector: KodeinInjector, dataStore: DataStore) {
                         }
                     )
             }
+
+            // Route
             requestRegistrationState == RequestState.SUCCESS -> {
-                if (viewHolder.viewStateInBackground()) {
-                    return@with
-                }
-
+                dataStore.transitToScreen = Screen.VERIFY_BY_SMS
                 requestRegistrationState = RequestState.IDLE
-                val intent = Intent(context, VerifyBySmsActivity::class.java)
-                context.startActivity(intent)
             }
-            registrationAction == RegistrationAction.REQUEST_REGISTRATION -> {
-                val intent = Intent(context, FinishRegistrationActivity::class.java)
-                context.startActivity(intent)
 
-                if (viewHolder.viewStateInBackground()) {
-                    return@with
-                }
-            }
-            else -> {}
+            registrationAction == RegistrationAction.FINISH_REGISTRATION ->
+                dataStore.transitToScreen = Screen.FINISH_REGISTRATION
+
+            else -> { /* Avoid error */ }
         }
     }
 
+    // Route
+    routeActivity(context, viewHolder, dataStore)
+    routeFragment(context, dataStore)
+
+    // Update state
     viewHolder.viewStateFullUpdate()
 }
 
-fun sendEvent(context: Context, event: Event) {
-    val intent = Intent(DATA_STORE_BROADCAST_ACTION)
-    intent.putExtra("event", event)
-    LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
+private fun routeActivity(context: Context, viewHolder: ViewStateHolder, dataStore: DataStore) {
+    if (viewHolder.viewStateInBackground())
+        return
+
+    if (dataStore.currentScreen == dataStore.transitToScreen)
+        return
+
+    val intent = Intent(context, dataStore.transitToScreen.cls.java)
+    context.startActivity(intent)
+
+    dataStore.currentScreen = dataStore.transitToScreen
+}
+
+private fun routeFragment(context: Context, dataStore: DataStore) {
+//    if (!dataStore.transitToScreen.isFragment)
+//        return
+//
+//    if (dataStore.currentScreen == dataStore.transitToScreen)
+//        return
+//
+//    dataStore.currentScreen = dataStore.transitToScreen
 }

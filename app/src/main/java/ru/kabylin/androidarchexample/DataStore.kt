@@ -3,6 +3,7 @@ package ru.kabylin.androidarchexample
 import android.support.annotation.StringRes
 import ru.kabylin.androidarchexample.systems.authorization.RegistrationAction
 import ru.kabylin.androidarchexample.systems.authorization.activities.FinishRegistrationActivity
+import ru.kabylin.androidarchexample.systems.authorization.activities.RegistrationActivity
 import ru.kabylin.androidarchexample.systems.authorization.activities.VerifyBySmsActivity
 import kotlin.reflect.KClass
 
@@ -15,15 +16,18 @@ enum class LoadingState {
     FINISHED
 }
 
-enum class Event {
-    DATA_STORE_UPDATED
-}
-
 enum class RequestState {
     IDLE,
     PROCESS,
     SUCCESS,
     ERROR
+}
+
+enum class Screen(val cls: KClass<*>, val isFragment: Boolean = false) {
+    SPLASH(SplashActivity::class),
+    REGISTRATION(RegistrationActivity::class),
+    VERIFY_BY_SMS(VerifyBySmsActivity::class),
+    FINISH_REGISTRATION(FinishRegistrationActivity::class),
 }
 
 data class RegistrationViewStateData(
@@ -35,8 +39,8 @@ data class RegistrationViewStateData(
     var registrationAction: RegistrationAction = RegistrationAction.IDLE
 )
 
-const val DATA_STORE_BROADCAST_ACTION = "ru.kabylin.androidarchexample.DataStore.BroadcastAction"
-
 object DataStore {
+    var transitToScreen: Screen = Screen.REGISTRATION
+    var currentScreen: Screen = Screen.REGISTRATION
     val registrationViewStateData = RegistrationViewStateData()
 }

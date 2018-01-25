@@ -7,6 +7,7 @@ import com.github.salomonbrys.kodein.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import ru.kabylin.androidarchexample.LoadingState
 import ru.kabylin.androidarchexample.R
+import ru.kabylin.androidarchexample.Screen
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.common.ext.setErrors
@@ -30,6 +31,8 @@ class RegistrationActivity : BaseActivity() {
     companion object {
         private const val REQUEST_FOR_RESULT_VERIFY_SMS = 1001
     }
+
+    override val screen = Screen.REGISTRATION
 
     private val viewState = RegistrationActivityViewState(this, dataStore)
     private val delegate: Delegate? by injector.instanceOrNull()

@@ -1,9 +1,6 @@
 package ru.kabylin.androidarchexample.systems.authorization.activities
 
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.support.annotation.CallSuper
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import ru.kabylin.androidarchexample.*
@@ -18,16 +15,13 @@ abstract class BaseActivity : KodeinAppCompatActivity(), DataStoreAware, ViewSta
 
     override fun viewStateInBackground() = isPaused
 
-    private val dataStoreEventReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            viewStateFullUpdate()
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         isPaused = false
         dispatch(this, injector, dataStore)
+
+        dataStore.currentScreen = screen
+        dataStore.transitToScreen = screen
     }
 
     override fun onPause() {
