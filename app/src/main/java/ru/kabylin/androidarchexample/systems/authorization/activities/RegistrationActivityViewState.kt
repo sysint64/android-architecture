@@ -1,5 +1,8 @@
 package ru.kabylin.androidarchexample.systems.authorization.activities
 
+import ru.kabylin.androidarchexample.DataStore
+import ru.kabylin.androidarchexample.LoadingState
+import ru.kabylin.androidarchexample.RegistrationViewStateData
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiError
 import ru.kabylin.androidarchexample.client.api.ApiErrorListener
@@ -10,43 +13,25 @@ import ru.kabylin.androidarchexample.common.tools.watchers.TextWatcherChanged
 
 import ru.kabylin.androidarchexample.views.ViewStateHolder
 
-enum class LoadingState {
-    PENDING,
-    FINISHED
-}
 
-class RegistrationActivityViewState(private val viewStateHolder: ViewStateHolder)
-    : RequestStateListener, ApiValidationErrorListener, ApiErrorListener
-{
-    enum class ScreenTransition {
-        NONE,
-        VERIFY_BY_SMS,
-        FINISH_REGISTRATION
-    }
-
-    data class ViewStateData(
-        var phone: String = "",
-        var fromErrors: Map<String, String> = HashMap(),
-        var authErrorMessage: String? = null,  // TODO: Int, string res
-        var loadingState: LoadingState = LoadingState.FINISHED,
-        var screenTransition: ScreenTransition = ScreenTransition.NONE
-    )
-
-    val data = ViewStateData()
+class RegistrationActivityViewState(
+    private val viewStateHolder: ViewStateHolder,
+    private val dataStore: DataStore
+) : RequestStateListener, ApiValidationErrorListener, ApiErrorListener {
 
     val phoneInputWatcher = object : TextWatcherChanged() {
         override fun onTextChanged(sequence: CharSequence, start: Int, before: Int, count: Int) {
-            data.phone = sequence.toString()
+            dataStore.registrationViewStateData.phone = sequence.toString()
         }
     }
 
     override fun onApiError(requestCode: Int, error: ApiError) {
         when (error.code) {
-            ApiErrorCode.AUTHENTICATION_FAILED ->
-                data.authErrorMessage = "Ошибка авторизации!"
-
+            ApiErrorCode.AUTHENTICATION_FAILED -> {
+//                dataStore.registrationViewStateData.authErrorMessage = "Ошибка авторизации!"
+            }
             else -> {
-                data.authErrorMessage = "Неизвестная ошибка!"
+//                dataStore.registrationViewStateData.authErrorMessage = "Неизвестная ошибка!"
             }
         }
 
@@ -54,17 +39,17 @@ class RegistrationActivityViewState(private val viewStateHolder: ViewStateHolder
     }
 
     override fun onApiValidationError(requestCode: Int, errors: ApiValidationError) {
-        data.fromErrors = errors.errors
+        dataStore.registrationViewStateData.fromErrors = errors.errors
         viewStateHolder.viewStateEdenUpdate();
     }
 
     override fun onStartRequest(requestCode: Int) {
-        data.loadingState = LoadingState.PENDING
+        dataStore.registrationViewStateData.loadingState = LoadingState.PENDING
         viewStateHolder.viewStateEdenUpdate();
     }
 
     override fun onFinishRequest(requestCode: Int) {
-        data.loadingState = LoadingState.FINISHED
+        dataStore.registrationViewStateData.loadingState = LoadingState.FINISHED
         viewStateHolder.viewStateEdenUpdate();
     }
 }

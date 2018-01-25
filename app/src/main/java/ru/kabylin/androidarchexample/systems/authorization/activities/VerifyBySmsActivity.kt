@@ -8,6 +8,7 @@ import android.view.View
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import kotlinx.android.synthetic.main.activity_verify_by_sms.*
+import ru.kabylin.androidarchexample.DataStore
 import ru.kabylin.androidarchexample.R
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
@@ -42,7 +43,7 @@ class VerifyBySmsActivity : KodeinAppCompatActivity(), VerifySmsView, RequestSta
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_by_sms)
 
-        presenter.phone = intent.extras["phone"] as String
+        presenter.phone = DataStore.registrationViewStateData.phone
 
         verifyForm = form {
             editText(name = "verifyCode", validators = listOf(RequiredValidator())) {

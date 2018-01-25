@@ -4,22 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.github.salomonbrys.kodein.*
-import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import kotlinx.android.synthetic.main.activity_registration.*
+import ru.kabylin.androidarchexample.LoadingState
 import ru.kabylin.androidarchexample.R
+import ru.kabylin.androidarchexample.ScreenTransition
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.common.ext.setErrors
-import ru.kabylin.androidarchexample.common.ext.subscribeOnSuccess
 import ru.kabylin.androidarchexample.forms.Form
 import ru.kabylin.androidarchexample.forms.fields.editText
 import ru.kabylin.androidarchexample.forms.form
 import ru.kabylin.androidarchexample.forms.validators.PhoneValidator
 import ru.kabylin.androidarchexample.forms.validators.RequiredValidator
+import ru.kabylin.androidarchexample.systems.authorization.DispatchAction
+import ru.kabylin.androidarchexample.systems.authorization.dispatch
 import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
-import ru.kabylin.androidarchexample.views.ViewStateHolder
 
-class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
+class RegistrationActivity : BaseActivity() {
     interface Delegate {
         fun setContentView(activity: RegistrationActivity)
 
@@ -30,7 +31,7 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
         private const val REQUEST_FOR_RESULT_VERIFY_SMS = 1001
     }
 
-    private val viewState = RegistrationActivityViewState(this)
+    private val viewState = RegistrationActivityViewState(this, dataStore)
     private val delegate: Delegate? by injector.instanceOrNull()
     private var inBackground = false
     private val service: RegistrationService by injector.instance()
@@ -57,12 +58,7 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
 
             attachSubmitButton(registerButton)
             onSubmit {
-                service.requestRegistration(viewState.data.phone)
-                    .subscribeOnSuccess {
-                        viewState.data.screenTransition =
-                            RegistrationActivityViewState.ScreenTransition.VERIFY_BY_SMS
-                        viewStateTransitionUpdate()
-                    }
+                dispatch(this@RegistrationActivity, dataStore, DispatchAction.REQUEST_REGISTRATION, service)
             }
         }
 
@@ -71,7 +67,7 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
     }
 
     override fun viewStateEdenUpdate() {
-        with(viewState.data) {
+        with(dataStore.registrationViewStateData) {
             registrationForm.setErrors(fromErrors)
 
             when (loadingState) {
@@ -92,29 +88,8 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
     }
 
     override fun viewStateFullUpdate() {
-        viewStateEdenUpdate()
-        phoneInput.setText(viewState.data.phone)
-        viewStateTransitionUpdate()
-    }
-
-    override fun viewStateTransitionUpdate() {
-        if (inBackground)
-            return
-
-        when (viewState.data.screenTransition) {
-            RegistrationActivityViewState.ScreenTransition.VERIFY_BY_SMS -> {
-                val intent = Intent(this, VerifyBySmsActivity::class.java)
-                intent.putExtra("phone", viewState.data.phone)
-                startActivity(intent)
-            }
-            RegistrationActivityViewState.ScreenTransition.FINISH_REGISTRATION -> {
-                val intent = Intent(this, FinishRegistrationActivity::class.java)
-                startActivity(intent)
-            }
-            else -> {}
-        }
-
-        viewState.data.screenTransition = RegistrationActivityViewState.ScreenTransition.NONE
+        super.viewStateFullUpdate()
+        phoneInput.setText(dataStore.registrationViewStateData.phone)
     }
 
     override fun onResume() {
@@ -136,8 +111,7 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
 
         when (requestCode) {
             REQUEST_FOR_RESULT_VERIFY_SMS -> {
-                viewState.data.screenTransition =
-                    RegistrationActivityViewState.ScreenTransition.FINISH_REGISTRATION
+                dataStore.registrationViewStateData.screenTransition = ScreenTransition.ACTIVITY_FINISH_REGISTRATION
                 viewStateTransitionUpdate()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
