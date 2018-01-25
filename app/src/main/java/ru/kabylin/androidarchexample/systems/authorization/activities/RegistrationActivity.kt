@@ -10,11 +10,13 @@ import ru.kabylin.androidarchexample.R
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.common.ext.setErrors
+import ru.kabylin.androidarchexample.common.ext.subscribeOnSuccess
 import ru.kabylin.androidarchexample.forms.Form
 import ru.kabylin.androidarchexample.forms.fields.editText
 import ru.kabylin.androidarchexample.forms.form
 import ru.kabylin.androidarchexample.forms.validators.PhoneValidator
 import ru.kabylin.androidarchexample.forms.validators.RequiredValidator
+import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
 import ru.kabylin.androidarchexample.views.ViewStateHolder
 
 class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
@@ -29,9 +31,9 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
     }
 
     private val viewState = RegistrationActivityViewState(this)
-    private val registrationDispatcher = RegistrationDispatcher(this, injector)
     private val delegate: Delegate? by injector.instanceOrNull()
     private var inBackground = false
+    private val service: RegistrationService by injector.instance()
 
     private lateinit var registrationForm: Form
 
@@ -55,7 +57,12 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
 
             attachSubmitButton(registerButton)
             onSubmit {
-                registrationDispatcher.requestRegistration(viewState)
+                service.requestRegistration(viewState.data.phone)
+                    .subscribeOnSuccess {
+                        viewState.data.screenTransition =
+                            RegistrationActivityViewState.ScreenTransition.VERIFY_BY_SMS
+                        viewStateTransitionUpdate()
+                    }
             }
         }
 
@@ -129,7 +136,9 @@ class RegistrationActivity : KodeinAppCompatActivity(), ViewStateHolder {
 
         when (requestCode) {
             REQUEST_FOR_RESULT_VERIFY_SMS -> {
-                registrationDispatcher.openFinishRegistration(viewState)
+                viewState.data.screenTransition =
+                    RegistrationActivityViewState.ScreenTransition.FINISH_REGISTRATION
+                viewStateTransitionUpdate()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
