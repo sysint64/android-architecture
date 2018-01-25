@@ -15,18 +15,18 @@ enum class DispatchAction {
 fun dispatch(context: Context, dataStore: DataStore, action: DispatchAction, service: RegistrationService) {
     when (action) {
         DispatchAction.REQUEST_REGISTRATION -> {
-            dataStore.registrationViewStateData.requestRegistrationState = RegistrationViewStateData.RequestRegistrationState.PROCESS
+            dataStore.registrationViewStateData.requestRegistrationState = RequestState.PROCESS
             sendEvent(context, Event.DATA_STORE_UPDATED)
 
             service.requestRegistration(dataStore.registrationViewStateData.phone)
                 .subscribeBy(
                     onSuccess = {
-                        dataStore.registrationViewStateData.requestRegistrationState = RegistrationViewStateData.RequestRegistrationState.SUCCESS
+                        dataStore.registrationViewStateData.requestRegistrationState = RequestState.SUCCESS
                         dataStore.registrationViewStateData.screenTransition = ScreenTransition.ACTIVITY_VERIFY_BY_SMS
                         sendEvent(context, Event.DATA_STORE_UPDATED)
                     },
                     onError = {
-                        dataStore.registrationViewStateData.requestRegistrationState = RegistrationViewStateData.RequestRegistrationState.ERROR
+                        dataStore.registrationViewStateData.requestRegistrationState = RequestState.ERROR
                     }
                 )
         }

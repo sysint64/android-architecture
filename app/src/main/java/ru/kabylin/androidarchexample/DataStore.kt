@@ -24,21 +24,21 @@ enum class Event {
     DATA_STORE_UPDATED
 }
 
+enum class RequestState {
+    IDLE,
+    PROCESS,
+    SUCCESS,
+    ERROR
+}
+
 data class RegistrationViewStateData(
     var phone: String = "",
     var fromErrors: Map<String, String> = HashMap(),
     @StringRes var authErrorMessage: Int = 0,
     var loadingState: LoadingState = LoadingState.FINISHED,
     var screenTransition: ScreenTransition = ScreenTransition.NONE,
-    var requestRegistrationState: RequestRegistrationState = RequestRegistrationState.IDLE
-) {
-    enum class RequestRegistrationState {
-        IDLE,
-        PROCESS,
-        SUCCESS,
-        ERROR
-    }
-}
+    var requestRegistrationState: RequestState = RequestState.IDLE
+)
 
 const val DATA_STORE_BROADCAST_ACTION = "ru.kabylin.androidarchexample.DataStore.BroadcastAction"
 
