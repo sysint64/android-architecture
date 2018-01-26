@@ -1,7 +1,7 @@
 package ru.kabylin.androidarchexample
 
 import android.support.annotation.StringRes
-import ru.kabylin.androidarchexample.systems.authorization.RegistrationAction
+import io.reactivex.Single
 import ru.kabylin.androidarchexample.systems.authorization.activities.FinishRegistrationActivity
 import ru.kabylin.androidarchexample.systems.authorization.activities.RegistrationActivity
 import ru.kabylin.androidarchexample.systems.authorization.activities.VerifyBySmsActivity
@@ -18,9 +18,15 @@ enum class LoadingState {
 
 enum class RequestState {
     IDLE,
+    SUBMIT,
     PROCESS,
     SUCCESS,
     ERROR
+}
+
+enum class TransitState {
+    IDLE,
+    SUBMIT
 }
 
 enum class Screen(val cls: KClass<*>, val isFragment: Boolean = false) {
@@ -36,7 +42,7 @@ data class RegistrationViewStateData(
     @StringRes var authErrorMessage: Int = 0,
     var loadingState: LoadingState = LoadingState.FINISHED,
     var requestRegistrationState: RequestState = RequestState.IDLE,
-    var registrationAction: RegistrationAction = RegistrationAction.IDLE
+    var finishRegistrationState: TransitState = TransitState.IDLE
 )
 
 object DataStore {

@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.github.salomonbrys.kodein.*
 import kotlinx.android.synthetic.main.activity_registration.*
-import ru.kabylin.androidarchexample.LoadingState
-import ru.kabylin.androidarchexample.R
-import ru.kabylin.androidarchexample.Screen
+import ru.kabylin.androidarchexample.*
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.common.ext.setErrors
@@ -16,8 +14,6 @@ import ru.kabylin.androidarchexample.forms.fields.editText
 import ru.kabylin.androidarchexample.forms.form
 import ru.kabylin.androidarchexample.forms.validators.PhoneValidator
 import ru.kabylin.androidarchexample.forms.validators.RequiredValidator
-import ru.kabylin.androidarchexample.systems.authorization.RegistrationAction
-import ru.kabylin.androidarchexample.systems.authorization.dispatch
 import ru.kabylin.androidarchexample.systems.authorization.services.RegistrationService
 import ru.kabylin.androidarchexample.views.ViewStateHolder
 
@@ -62,13 +58,18 @@ class RegistrationActivity : BaseActivity() {
 
             attachSubmitButton(registerButton)
             onSubmit {
-                dataStore.registrationViewStateData.registrationAction = RegistrationAction.REQUEST_REGISTRATION
-                dispatch(this@RegistrationActivity, injector, dataStore)
+                dataStore.registrationViewStateData.requestRegistrationState = RequestState.SUBMIT
+                dispatch()
             }
         }
 
         phoneInput.addTextChangedListener(viewState.phoneInputWatcher)
         delegate?.attachForm(registrationForm)
+
+        loginButton.setOnClickListener {
+            dataStore.registrationViewStateData.finishRegistrationState = TransitState.SUBMIT
+            dispatch()
+        }
     }
 
     override fun viewStateEdenUpdate() {
@@ -116,8 +117,8 @@ class RegistrationActivity : BaseActivity() {
 
         when (requestCode) {
             REQUEST_FOR_RESULT_VERIFY_SMS -> {
-                dataStore.registrationViewStateData.registrationAction = RegistrationAction.FINISH_REGISTRATION
-                dispatch(this, injector, dataStore)
+                dataStore.registrationViewStateData.finishRegistrationState = TransitState.SUBMIT
+                dispatch()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

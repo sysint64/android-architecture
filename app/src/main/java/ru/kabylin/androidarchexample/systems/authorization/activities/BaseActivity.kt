@@ -33,4 +33,8 @@ abstract class BaseActivity : KodeinAppCompatActivity(), DataStoreAware, ViewSta
     override fun viewStateFullUpdate() {
         viewStateEdenUpdate()
     }
+
+    protected fun dispatch() {
+        dispatch(this, injector, dataStore)
+    }
 }

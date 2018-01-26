@@ -13,6 +13,7 @@ import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_pass_code.*
 import ru.kabylin.androidarchexample.R
+import ru.kabylin.androidarchexample.RequestState
 import ru.kabylin.androidarchexample.client.RequestStateListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationErrorListener
 import ru.kabylin.androidarchexample.client.api.ApiValidationError
